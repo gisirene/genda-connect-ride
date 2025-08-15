@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Link } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 import { 
   Facebook, 
   Twitter, 
@@ -12,30 +14,47 @@ import {
 } from "lucide-react";
 
 export const Footer = () => {
+  const { toast } = useToast();
+
+  const handleNewsletterSignup = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Subscribed!",
+      description: "Thank you for subscribing to our newsletter.",
+    });
+  };
+
+  const handleComingSoon = (feature: string) => {
+    toast({
+      title: "Coming Soon",
+      description: `${feature} will be available soon!`,
+    });
+  };
+
   const footerLinks = {
     platform: [
-      { name: "For Passengers", href: "#" },
-      { name: "For Drivers", href: "#" },
-      { name: "For Police", href: "#" },
-      { name: "Safety Features", href: "#" },
+      { name: "For Passengers", href: "/auth", type: "link" },
+      { name: "For Drivers", href: "/auth", type: "link" },
+      { name: "For Police", href: "/auth", type: "link" },
+      { name: "Safety Features", href: "/services", type: "link" },
     ],
     company: [
-      { name: "About Us", href: "#about" },
-      { name: "Our Mission", href: "#about" },
-      { name: "Careers", href: "#" },
-      { name: "Press", href: "#" },
+      { name: "About Us", href: "/about", type: "link" },
+      { name: "Our Mission", href: "/about", type: "link" },
+      { name: "Careers", href: "#", type: "coming-soon" },
+      { name: "Press", href: "#", type: "coming-soon" },
     ],
     support: [
-      { name: "Help Center", href: "#" },
-      { name: "Contact Us", href: "#contact" },
-      { name: "Emergency", href: "#" },
-      { name: "Report Issue", href: "#" },
+      { name: "Help Center", href: "#", type: "coming-soon" },
+      { name: "Contact Us", href: "/contact", type: "link" },
+      { name: "Emergency", href: "#", type: "coming-soon" },
+      { name: "Report Issue", href: "/contact", type: "link" },
     ],
     legal: [
-      { name: "Privacy Policy", href: "#" },
-      { name: "Terms of Service", href: "#" },
-      { name: "Driver Agreement", href: "#" },
-      { name: "Safety Guidelines", href: "#" },
+      { name: "Privacy Policy", href: "/privacy", type: "link" },
+      { name: "Terms of Service", href: "/terms", type: "link" },
+      { name: "Driver Agreement", href: "#", type: "coming-soon" },
+      { name: "Safety Guidelines", href: "#", type: "coming-soon" },
     ],
   };
 
@@ -85,12 +104,21 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.platform.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-primary-foreground/80 hover:text-accent transition-colors text-sm"
-                  >
-                    {link.name}
-                  </a>
+                  {link.type === "link" ? (
+                    <Link
+                      to={link.href}
+                      className="text-primary-foreground/80 hover:text-accent transition-colors text-sm"
+                    >
+                      {link.name}
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => handleComingSoon(link.name)}
+                      className="text-primary-foreground/80 hover:text-accent transition-colors text-sm text-left"
+                    >
+                      {link.name}
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
@@ -101,12 +129,21 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-primary-foreground/80 hover:text-accent transition-colors text-sm"
-                  >
-                    {link.name}
-                  </a>
+                  {link.type === "link" ? (
+                    <Link
+                      to={link.href}
+                      className="text-primary-foreground/80 hover:text-accent transition-colors text-sm"
+                    >
+                      {link.name}
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => handleComingSoon(link.name)}
+                      className="text-primary-foreground/80 hover:text-accent transition-colors text-sm text-left"
+                    >
+                      {link.name}
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
@@ -117,12 +154,21 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-primary-foreground/80 hover:text-accent transition-colors text-sm"
-                  >
-                    {link.name}
-                  </a>
+                  {link.type === "link" ? (
+                    <Link
+                      to={link.href}
+                      className="text-primary-foreground/80 hover:text-accent transition-colors text-sm"
+                    >
+                      {link.name}
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => handleComingSoon(link.name)}
+                      className="text-primary-foreground/80 hover:text-accent transition-colors text-sm text-left"
+                    >
+                      {link.name}
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
@@ -133,12 +179,21 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-primary-foreground/80 hover:text-accent transition-colors text-sm"
-                  >
-                    {link.name}
-                  </a>
+                  {link.type === "link" ? (
+                    <Link
+                      to={link.href}
+                      className="text-primary-foreground/80 hover:text-accent transition-colors text-sm"
+                    >
+                      {link.name}
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => handleComingSoon(link.name)}
+                      className="text-primary-foreground/80 hover:text-accent transition-colors text-sm text-left"
+                    >
+                      {link.name}
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
@@ -154,16 +209,17 @@ export const Footer = () => {
                 Get the latest updates on new features, safety improvements, and service expansions.
               </p>
             </div>
-            <div className="flex gap-3">
+            <form onSubmit={handleNewsletterSignup} className="flex gap-3">
               <input
                 type="email"
                 placeholder="Enter your email"
                 className="flex-1 px-4 py-2 rounded-lg bg-background text-foreground border border-border focus:outline-none focus:ring-2 focus:ring-accent"
+                required
               />
-              <Button variant="accent">
+              <Button type="submit" variant="accent">
                 Subscribe
               </Button>
-            </div>
+            </form>
           </div>
         </div>
 

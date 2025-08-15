@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Car, Shield, Users, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-transport.jpg";
 
 export const HeroSection = () => {
+  const navigate = useNavigate();
+
   const userTypes = [
     {
       icon: Users,
@@ -51,11 +54,21 @@ export const HeroSection = () => {
               safer, more efficient transport ecosystem for everyone.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="lg" className="group">
+              <Button 
+                variant="hero" 
+                size="lg" 
+                className="group"
+                onClick={() => navigate('/auth')}
+              >
                 Get Started Today
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="border-white text-white hover:bg-white hover:text-primary"
+                onClick={() => navigate('/about')}
+              >
                 Learn More
               </Button>
             </div>

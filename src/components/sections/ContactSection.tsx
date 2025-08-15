@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 import { 
   MapPin, 
   Phone, 
@@ -14,6 +15,8 @@ import {
 } from "lucide-react";
 
 export const ContactSection = () => {
+  const { toast } = useToast();
+
   const contactInfo = [
     {
       icon: MapPin,
@@ -43,8 +46,19 @@ export const ContactSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    alert("Thank you for your message! We'll get back to you soon.");
+    toast({
+      title: "Message Sent!",
+      description: "Thank you for your message! We'll get back to you soon.",
+    });
+    // Reset form
+    (e.target as HTMLFormElement).reset();
+  };
+
+  const handleFAQ = () => {
+    toast({
+      title: "FAQ Section",
+      description: "Frequently Asked Questions section coming soon!",
+    });
   };
 
   return (
@@ -176,7 +190,7 @@ export const ContactSection = () => {
             Looking for quick answers? Check out our FAQ section for common questions 
             about registration, safety protocols, and platform features.
           </p>
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleFAQ}>
             View FAQ
           </Button>
         </div>

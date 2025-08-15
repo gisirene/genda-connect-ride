@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Navigation, Clock, Users } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 // For now, we'll create a placeholder map component
 // In production, you would add Mapbox integration here
@@ -45,6 +46,30 @@ export const BookingSection = () => {
   const [toLocation, setToLocation] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
+  const { toast } = useToast();
+
+  const handleSearchRoutes = () => {
+    if (!fromLocation || !toLocation) {
+      toast({
+        variant: "destructive",
+        title: "Missing Information",
+        description: "Please enter both pickup and destination locations.",
+      });
+      return;
+    }
+    
+    toast({
+      title: "Searching Routes",
+      description: "Finding the best routes for your journey...",
+    });
+  };
+
+  const handleSelectSeats = (routeId: string) => {
+    toast({
+      title: "Seat Selection",
+      description: "Opening seat selection for this route...",
+    });
+  };
 
   const availableRoutes = [
     {
@@ -155,7 +180,12 @@ export const BookingSection = () => {
                 </div>
               </div>
 
-              <Button variant="hero" className="w-full" size="lg">
+              <Button 
+                variant="hero" 
+                className="w-full" 
+                size="lg"
+                onClick={handleSearchRoutes}
+              >
                 Search Routes
               </Button>
 
@@ -187,7 +217,11 @@ export const BookingSection = () => {
                           <Clock className="h-4 w-4" />
                           <span>Next: {route.nextDeparture}</span>
                         </div>
-                        <Button variant="outline" size="sm">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => handleSelectSeats(route.id)}
+                        >
                           Select Seats
                         </Button>
                       </div>

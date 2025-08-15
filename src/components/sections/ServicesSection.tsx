@@ -1,6 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 import { 
   MapPin, 
   Clock, 
@@ -16,6 +18,16 @@ import {
 } from "lucide-react";
 
 export const ServicesSection = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleLearnMore = (serviceName: string) => {
+    toast({
+      title: `${serviceName} Information`,
+      description: "Learn more about this service feature.",
+    });
+  };
+
   const mainServices = [
     {
       icon: Calendar,
@@ -139,7 +151,11 @@ export const ServicesSection = () => {
                     </li>
                   ))}
                 </ul>
-                <Button variant="outline" className="w-full mt-4">
+                <Button 
+                  variant="outline" 
+                  className="w-full mt-4"
+                  onClick={() => handleLearnMore(service.title)}
+                >
                   Learn More
                 </Button>
               </CardContent>
@@ -216,7 +232,12 @@ export const ServicesSection = () => {
                 <Users className="h-16 w-16 text-primary mx-auto" />
                 <h4 className="text-2xl font-bold text-primary">Ready to Start?</h4>
                 <p className="text-muted-foreground">Join thousands of satisfied passengers</p>
-                <Button variant="hero" size="lg" className="mt-4">
+                <Button 
+                  variant="hero" 
+                  size="lg" 
+                  className="mt-4"
+                  onClick={() => navigate('/auth')}
+                >
                   Book Your First Ride
                 </Button>
               </div>
